@@ -15,6 +15,9 @@ class _InputPageState extends State<InputPage> {
       body: Container (
         color: Color(0xFF1D1E33),
         margin: EdgeInsets.all(15.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         height: 200.0,
         width: 170.0,
       )
