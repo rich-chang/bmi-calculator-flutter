@@ -41,9 +41,6 @@ class _InputPageState extends State<InputPage> {
 }
 
 class ReusableContainer extends StatelessWidget {
-  const ReusableContainer({
-    Key key,
-  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
