@@ -107,9 +107,10 @@ class _InputPageState extends State<InputPage> {
                         value: height.toDouble(),
                         min: 120.0,
                         max: 220.0,
-                        onChanged: (double pos){
+                        onChanged: (double pos) {
                           print(pos);
-                          setState(() { //To rebuild the parent widget UI when pos changes
+                          setState(() {
+                            //To rebuild the parent widget UI when pos changes
                             height = pos.round();
                           });
                         },
@@ -124,15 +125,44 @@ class _InputPageState extends State<InputPage> {
                 children: [
                   Expanded(
                     child: ReusableContainer(
-                        bkgColor: kActiveCardColor,
-                        cardChild: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('WEIGHT', style: kLabelTextStyle,),
-                            Text(weight.toString(), style: kNumberTextStyle,),
-                            RowFloatingActionBtn(),
-                          ],
-                        ),
+                      bkgColor: kActiveCardColor,
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'WEIGHT',
+                            style: kLabelTextStyle,
+                          ),
+                          Text(
+                            weight.toString(),
+                            style: kNumberTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              RoundIconButton(
+                                icon: FontAwesomeIcons.minus,
+                                onPressed: (){
+                                  setState(() {
+                                    weight--;
+                                    print(weight);
+                                  });
+                                },
+                              ),
+                              SizedBox(width: 10.0,),
+                              RoundIconButton(
+                                icon: FontAwesomeIcons.plus,
+                                onPressed: (){
+                                  setState(() {
+                                    weight++;
+                                    print(weight);
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(
@@ -152,7 +182,7 @@ class _InputPageState extends State<InputPage> {
   }
 }
 
-class RowFloatingActionBtn extends StatelessWidget  {
+class RowFloatingActionBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -165,7 +195,9 @@ class RowFloatingActionBtn extends StatelessWidget  {
             Icons.add,
           ),
         ),
-        SizedBox(width: 10.0,),
+        SizedBox(
+          width: 10.0,
+        ),
         FloatingActionButton(
           onPressed: null,
           backgroundColor: Color(0xFF4C4F5E),
@@ -174,6 +206,28 @@ class RowFloatingActionBtn extends StatelessWidget  {
           ),
         ),
       ],
+    );
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  RoundIconButton({@required this.icon, @required this.onPressed});
+
+  final IconData icon;
+  final Function onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    //throw UnimplementedError();
+    return RawMaterialButton(
+      elevation: 0.0,       //flat design
+      child: Icon(icon),    //IconData passed from caller
+      onPressed: onPressed, //implement onPressed() outside
+      constraints: BoxConstraints.tightFor(width: 56.0, height: 56.0),
+      shape: CircleBorder(),
+      //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      fillColor: Color(0xFF4C4F5E),
     );
   }
 }
