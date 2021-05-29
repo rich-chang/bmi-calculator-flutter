@@ -1,10 +1,12 @@
-import 'package:bmi_calculator/result_page.dart';
+import 'package:bmi_calculator/components/icon_content.dart';
+import 'package:bmi_calculator/components/round_icon_button.dart';
+import 'package:bmi_calculator/screens/result_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'reusable_card.dart';
-import 'icon_content.dart';
-import 'constant.dart';
+import '../components/bottom_button.dart';
+import '../components/reusable_card.dart';
+import '../constant.dart';
 
 const bottomContainerMarginTop = 10.0;
 
@@ -144,17 +146,19 @@ class _InputPageState extends State<InputPage> {
                             children: [
                               RoundIconButton(
                                 icon: FontAwesomeIcons.minus,
-                                onPressed: (){
+                                onPressed: () {
                                   setState(() {
                                     weight--;
                                     print(weight);
                                   });
                                 },
                               ),
-                              SizedBox(width: 10.0,),
+                              SizedBox(
+                                width: 10.0,
+                              ),
                               RoundIconButton(
                                 icon: FontAwesomeIcons.plus,
-                                onPressed: (){
+                                onPressed: () {
                                   setState(() {
                                     weight++;
                                     print(weight);
@@ -186,17 +190,19 @@ class _InputPageState extends State<InputPage> {
                             children: [
                               RoundIconButton(
                                 icon: FontAwesomeIcons.minus,
-                                onPressed: (){
+                                onPressed: () {
                                   setState(() {
                                     age--;
                                     print(age);
                                   });
                                 },
                               ),
-                              SizedBox(width: 10.0,),
+                              SizedBox(
+                                width: 10.0,
+                              ),
                               RoundIconButton(
                                 icon: FontAwesomeIcons.plus,
-                                onPressed: (){
+                                onPressed: () {
                                   setState(() {
                                     age++;
                                     print(age);
@@ -212,79 +218,19 @@ class _InputPageState extends State<InputPage> {
                 ],
               ),
             ),
-            GestureDetector(
-              onTap: (){
+            BottomButton(
+              btnLabel: 'CALCULATE',
+              onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context){
+                  MaterialPageRoute(builder: (context) {
                     return ResultPage();
                   }),
                 );
               },
-              child: Container(
-                child: Center(
-                    child: Text(
-                        "CALCULATE", style: kLargeButtonStyle
-                    )
-                ),
-                color: kBottomContainerColor,
-                margin: EdgeInsets.only(top: bottomContainerMarginTop),
-                height: kBottomContainerHeight,
-                width: double.infinity,
-                padding: EdgeInsets.only(bottom: 20.0),
-              ),
             )
           ],
         ));
   }
 }
 
-class RowFloatingActionBtn extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        FloatingActionButton(
-          onPressed: null,
-          backgroundColor: Color(0xFF4C4F5E),
-          child: Icon(
-            Icons.add,
-          ),
-        ),
-        SizedBox(
-          width: 10.0,
-        ),
-        FloatingActionButton(
-          onPressed: null,
-          backgroundColor: Color(0xFF4C4F5E),
-          child: Icon(
-            Icons.add,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class RoundIconButton extends StatelessWidget {
-  RoundIconButton({@required this.icon, @required this.onPressed});
-
-  final IconData icon;
-  final Function onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    //throw UnimplementedError();
-    return RawMaterialButton(
-      elevation: 0.0,       //flat design
-      child: Icon(icon),    //IconData passed from caller
-      onPressed: onPressed, //implement onPressed() outside
-      constraints: BoxConstraints.tightFor(width: 56.0, height: 56.0),
-      shape: CircleBorder(),
-      //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      fillColor: Color(0xFF4C4F5E),
-    );
-  }
-}
